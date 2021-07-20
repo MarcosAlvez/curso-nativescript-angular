@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "cli": {
+      "analytics": "90f8a040-78e2-4c39-b7ab-a6889a025993",
+        "defaultCollection": "@nativescript/schematics"
+    },
+    "projects": {
+        "my-drawer": {
+            "root": "",
+            "sourceRoot": "src",
+            "projectType": "application",
+            "prefix": "ns"
+        }
+    },
+    "defaultProject": "my-drawer"
+}
