@@ -7,7 +7,7 @@ import {Application} from "@nativescript/core";
   selector: 'Two',
   templateUrl: './two.component.html',
 })
-// @ts-ignore
+
 export class TwoComponent implements OnInit {
 
   constructor() { }

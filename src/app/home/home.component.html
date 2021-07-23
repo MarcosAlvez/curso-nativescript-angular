@@ -7,9 +7,17 @@
     </GridLayout>
 </ActionBar>
 
-<GridLayout class="page__content">
+<StackLayout class="page__content">
   <Label class="page__content-icon fas" text="&#xf015;"></Label>
-  <StackLayout class="page__content-stack">
-    <Label class="page__content-placeholder" *ngFor="let n of this.newsService.getNews()" [text]="n.title"></Label>
-  </StackLayout>
-</GridLayout>
+  <PullRefresh:PullToRefresh (refresh)="onPull($event)">
+    <ListView class="list-group" [items]="this.newsService.getNews()" (itemTap)="onItemTap($event)" style="height: 1250px;">
+      <ng-template let-x="item">
+        <FlexboxLayout flexDirection="row" class="list-group-item">
+          <Image src="res://logo" class="thumb img-circle"></Image>
+          <Label class="list-group-item-heading" [text]="x.title"
+            verticalAlignment="center" style="width: 60%"></Label>
+        </FlexboxLayout>
+      </ng-template>
+    </ListView>
+  </PullRefresh:PullToRefresh>
+</StackLayout>

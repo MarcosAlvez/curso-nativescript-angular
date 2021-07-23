@@ -45,6 +45,23 @@
   }
 }
 
+.nov {
+
+  &-text {
+    font-size: 18;
+    color: #524d4d;
+    margin: 10 20 10 20;
+  }
+
+  &-author {
+    font-size: 14;
+    color: #6d6d6d;
+    horizontal-align: right;
+    margin-right: 10;
+  }
+
+}
+
 // Drawer navigation custom styles
 .nt-drawer__header-image {
   color: const(grey);
