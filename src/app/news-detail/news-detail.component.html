@@ -10,4 +10,20 @@
 <StackLayout class="page__content">
     <Label class="nov-text" [text]="n.body"></Label>
     <Label class="nov-author" [text]="n.author"></Label>
+    <PullRefresh:PullToRefresh (refresh)="onPull($event)">
+    <ListView class="list-group" [items]="n.comments">
+      <ng-template let-x="item">
+        <GridLayout columns="auto, *, auto" rows="auto, 25" verticalAlignment="top" backgroundColor="lightgray">
+            <Image src="https://i.pinimg.com/originals/0c/34/23/0c342309475df0f3dafd3189655b8739.png" rowSpan="2" width="72" height="72" margin="3" verticalAlignment="top"></Image>
+            <Label [text]="x.text" textWrap="true" col="1" colSpan="2" minHeight="50" fontSize="20" margin="3"></Label>
+            <Label class="fas" text="&#xf164;" colSpan="2" color="blue" horizontalAlignment="right" (tap)="voteUp(x)"></Label>
+            <Label class="fas" text="&#xf165;" colSpan="3" color="red" horizontalAlignment="right" (tap)="voteDown(x)"></Label>
+            <Label [text]="x.user" col="1" row="1" fontSize="14" horizontalAlignment="left" verticalAlignment="bottom"></Label>
+            <Label [text]="x.rating" col="2" row="1" color="#10C2B0" fontSize="14" verticalAlignment="bottom"></Label>
+            <Label class="fas" text="&#xf057;" colSpan="3" color="red" horizontalAlignment="right"
+                verticalAlignment="top" (tap)="report(x)"></Label>
+        </GridLayout>
+      </ng-template>
+    </ListView>
+  </PullRefresh:PullToRefresh>
 </StackLayout>
