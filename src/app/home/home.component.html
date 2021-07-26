@@ -13,7 +13,7 @@
   <PullRefresh:PullToRefresh (refresh)="onPull($event)">
     <ListView class="list-group" [items]="this.srchReslts" (itemTap)="onItemTap($event)" style="height: 1250px;">
       <ng-template let-x="item">
-        <FlexboxLayout flexDirection="row" class="list-group-item">
+        <FlexboxLayout flexDirection="row" class="list-group-item" (longPress)="onLongPress($event)">
           <Image src="res://logo" class="thumb img-circle"></Image>
           <Label class="list-group-item-heading" [text]="x.title"
             verticalAlignment="center" style="width: 60%"></Label>

@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application, Color, View } from '@nativescript/core'
+import { Application, Color, GestureEventData, GridLayout, View } from '@nativescript/core'
 import {NewsService} from "../domain/news.service";
 import {New} from "../domain/news";
 import {RouterExtensions} from "@nativescript/angular";
 import { ViewChild } from '@angular/core';
+import { Dialogs } from '@nativescript/core';
 
 @Component({
   selector: 'Home',
@@ -70,5 +71,20 @@ export class HomeComponent implements OnInit {
         name: 'fade'
       }
     })
+  }
+
+  onLongPress(e: GestureEventData) {
+    console.log("Object that triggered event: " + e.object)
+    console.log("View that triggered event: " + e.view)
+    console.log("Event name: " + e.eventName)
+
+    const grid = <GridLayout>e.object
+    grid.animate({
+      backgroundColor: new Color("blue"),
+      duration: 300
+    }).then(() => grid.animate({
+      backgroundColor: new Color("white"),
+      duration: 300
+    })).then(() => Dialogs.action("Select action", "Cancel", ["Delete", "Archive"]))
   }
 }
