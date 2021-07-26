@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'one',
     loadChildren: () => import('~/app/one/one.module').then((m) => m.OneModule),
   },
+  {
+    path: 'news-edit/:id',
+    loadChildren: () => import('~/app/news-edit/news-edit.module').then((m) => m.NewsEditModule),
+  }
 ]
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application } from '@nativescript/core'
+import { ActivityIndicator, Application } from '@nativescript/core'
 import { Dialogs } from '@nativescript/core'
 // import * as Toast from 'nativescript-toasts'
 
@@ -53,4 +53,9 @@ export class SettingsComponent implements OnInit {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
   }
+
+  cambio(e) { 
+    let indicator = <ActivityIndicator>e.object;
+    console.log("indicator.busy: " + indicator.busy);
+  } 
 }

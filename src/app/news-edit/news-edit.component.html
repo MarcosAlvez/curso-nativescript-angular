@@ -1,0 +1,15 @@
+<ActionBar class="action-bar">
+    <NavigationButton visibility="hidden"></NavigationButton>
+    <GridLayout columns="50, *">
+        <Label class="action-bar-title" text="Edit News" colSpan="2"></Label>
+
+        <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    </GridLayout>
+</ActionBar>
+
+<StackLayout class="page__content">
+  <Label text="Title"></Label>
+  <TextField #text [text]="n.title" required></TextField>
+  <Label *ngIf="text.hasError('required')" text="*" color="red"></Label>
+  <Button text="Save" (tap)="onSave($event)"></Button>
+</StackLayout>

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application } from '@nativescript/core'
+import { Application, Color, View } from '@nativescript/core'
 import {NewsService} from "../domain/news.service";
 import {New} from "../domain/news";
 import {RouterExtensions} from "@nativescript/angular";
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'Home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
+  srchReslts: Array<New>
+  @ViewChild("layout") layout: ElementRef;
 
   constructor(public newsService: NewsService, private routerExtensions: RouterExtensions) {
     // Use the component constructor to inject providers.
@@ -42,4 +45,30 @@ export class HomeComponent implements OnInit {
     }, 2000)
   }
 
+  onSearch(s: string) {
+    const allNews = this.newsService.getNews()
+    this.srchReslts = allNews.filter((x) => x.title.indexOf(s) >= 0)
+
+    // Layout Animation
+    const layout = <View>this.layout.nativeElement
+    layout.animate({
+      backgroundColor: new Color("gray"),
+      duration: 300,
+      delay: 150
+    }).then(() => layout.animate({
+      backgroundColor: new Color("white"),
+      duration: 300,
+      delay: 150
+    }))
+  }
+
+  editNew(nid) {
+    const url = 'news-edit/' + (nid).toString()
+    console.log(url)
+    this.routerExtensions.navigate([url], {
+      transition: {
+        name: 'fade'
+      }
+    })
+  }
 }
