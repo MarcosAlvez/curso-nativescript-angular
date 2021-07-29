@@ -6,13 +6,16 @@ import {New} from "../domain/news";
 import {RouterExtensions} from "@nativescript/angular";
 import { ViewChild } from '@angular/core';
 import { Dialogs } from '@nativescript/core';
+import * as Toast from 'nativescript-toasts'
 
 @Component({
   selector: 'Home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  srchReslts: Array<New>
+  // srchReslts: Array<New>  <-- OLD VERSION
+  srchReslts: Array<string>;
+
   @ViewChild("layout") layout: ElementRef;
 
   constructor(public newsService: NewsService, private routerExtensions: RouterExtensions) {
@@ -47,8 +50,14 @@ export class HomeComponent implements OnInit {
   }
 
   onSearch(s: string) {
-    const allNews = this.newsService.getNews()
-    this.srchReslts = allNews.filter((x) => x.title.indexOf(s) >= 0)
+    console.log("Buscando :" + s)
+    this.newsService.buscar(s).then((r: any) => {
+      console.log("Resultados de busqueda: " + JSON.stringify(r))
+      this.srchReslts = r
+    }, (e) => {
+      console.log("Error en la busqueda " + e)
+      // Toast.show({text: "Error en la busqueda", duration: Toast.DURATION.SHORT})  <-- Toast not working
+    })
 
     // Layout Animation
     const layout = <View>this.layout.nativeElement
@@ -64,6 +73,7 @@ export class HomeComponent implements OnInit {
   }
 
   editNew(nid) {
+    console.dir(nid)
     const url = 'news-edit/' + (nid).toString()
     console.log(url)
     this.routerExtensions.navigate([url], {

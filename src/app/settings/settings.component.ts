@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { ActivityIndicator, Application } from '@nativescript/core'
+import { ActivityIndicator, Application, ApplicationSettings } from '@nativescript/core'
 import { Dialogs } from '@nativescript/core'
+import { RouterExtensions } from '@nativescript/angular'
 // import * as Toast from 'nativescript-toasts'
+
 
 
 @Component({
@@ -22,13 +24,21 @@ export class SettingsComponent implements OnInit {
     okButtonText: "btn 2"
   }
 
-  constructor() {
+  nombreUsuario: string;
+
+  constructor(private routerExtensions: RouterExtensions) {
     // Use the component constructor to inject providers.
   }
 
-  doLater(fn) {setTimeout(fn, 1000)}
+  doLater(fn) {setTimeout(fn, 500)}
 
   ngOnInit(): void {
+    //  LocalStorage
+    if(!ApplicationSettings.hasKey("nombreUsuario")) { 
+      ApplicationSettings.setString("nombreUsuario", "Invitado")
+    }
+    this.nombreUsuario = ApplicationSettings.getString("nombreUsuario")
+
     this.doLater(() =>
       Dialogs.action("Mensaje", "Cancelar!", ["Opcion1", "Opcion2"])
         .then((result) => {
@@ -57,5 +67,15 @@ export class SettingsComponent implements OnInit {
   cambio(e) { 
     let indicator = <ActivityIndicator>e.object;
     console.log("indicator.busy: " + indicator.busy);
-  } 
+  }
+
+  editUser() {
+    console.log("Editar a " + this.nombreUsuario)
+    const url = '/user'
+    this.routerExtensions.navigate([url], {
+      transition: {
+        name: 'fade'
+      }
+    })
+  }
 }

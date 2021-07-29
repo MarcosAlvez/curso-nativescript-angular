@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'news-edit/:id',
     loadChildren: () => import('~/app/news-edit/news-edit.module').then((m) => m.NewsEditModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('~/app/user/user.module').then((m) => m.UserModule),
   }
 ]
 

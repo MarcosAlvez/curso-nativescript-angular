@@ -9,7 +9,8 @@
 
 <StackLayout class="page__content">
   <Label class="page__content-icon fas" text="&#xf013;"></Label>
-  <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+  <Label class="page__content-placeholder" [text]="nombreUsuario"></Label>
+  <Button text="Edit" (tap)="editUser()"></Button>
   <Button text="Tocar!" (tap)="(activityIndicator.busy = !activityIndicator.busy)" 
     class="btn btn-primary btn-active"></Button>
   <ActivityIndicator #activityIndicator busy="true" (busyChange)="cambio($event)" 

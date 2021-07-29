@@ -1,0 +1,17 @@
+<ActionBar class="action-bar">
+    <NavigationButton visibility="hidden"></NavigationButton>
+    <GridLayout columns="50, *">
+        <Label class="action-bar-title" text="User" colSpan="2"></Label>
+
+        <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    </GridLayout>
+</ActionBar>
+
+<StackLayout class="page__content">
+    <Label text="Cambiar nombre"></Label>
+    <TextField [(ngModel)]="nuevoNombre" #txt="ngModel" [text]="nombreUsuario" required></TextField>
+    <Label *ngIf="!txt.valid" text="*" color="red"></Label>
+    <Button text="Save" (Tap)="submit()" *ngIf="txt.valid"></Button>
+    <Label text="Nuevo nombre de usuario:"></Label>
+    <Label [text]="nombreUsuario"></Label>
+</StackLayout>

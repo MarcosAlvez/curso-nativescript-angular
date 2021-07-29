@@ -8,6 +8,7 @@ import {
 } from 'nativescript-ui-sidedrawer'
 import { filter } from 'rxjs/operators'
 import { Application } from '@nativescript/core'
+import { ApplicationSettings } from '@nativescript/core'
 
 @Component({
   selector: 'ns-app',
@@ -16,9 +17,11 @@ import { Application } from '@nativescript/core'
 export class AppComponent implements OnInit {
   private _activatedUrl: string
   private _sideDrawerTransition: DrawerTransitionBase
+  userName: string
 
   constructor(private router: Router, private routerExtensions: RouterExtensions) {
     // Use the component constructor to inject services.
+    this.userName = ApplicationSettings.getString("nombreUsuario")
   }
 
   ngOnInit(): void {

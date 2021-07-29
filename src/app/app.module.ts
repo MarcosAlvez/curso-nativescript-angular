@@ -8,7 +8,10 @@ import {NewsService} from "~/app/domain/news.service";
 
 @NgModule({
   bootstrap: [AppComponent],
-  imports: [AppRoutingModule, NativeScriptModule, NativeScriptUISideDrawerModule],
+  imports: [AppRoutingModule, 
+            NativeScriptModule, 
+            NativeScriptUISideDrawerModule
+  ],
   declarations: [AppComponent],
   providers: [NewsService],
   schemas: [NO_ERRORS_SCHEMA],

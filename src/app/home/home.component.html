@@ -15,7 +15,8 @@
       <ng-template let-x="item">
         <FlexboxLayout flexDirection="row" class="list-group-item" (longPress)="onLongPress($event)">
           <Image src="res://logo" class="thumb img-circle"></Image>
-          <Label class="list-group-item-heading" [text]="x.title"
+           <!-- OLD [text]="x.title" -->
+          <Label class="list-group-item-heading" [text]="x" 
             verticalAlignment="center" style="width: 60%"></Label>
           <Label text="Edit" text-size="12" verticalAlignment="top" horizontalAlignment="right" (tap)="editNew(x.id)"></Label>
         </FlexboxLayout>
