@@ -2,6 +2,10 @@ export class Comment {
   constructor (public user: string, public text: string, public rating: number) { }
 }
 
+export class Noticia {
+  constructor(public title: string){}
+}
+
 export class New {
   comments: Comment[];
 

@@ -2,11 +2,14 @@ import { Component, ElementRef, OnInit } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { Application, Color, GestureEventData, GridLayout, View } from '@nativescript/core'
 import {NewsService} from "../domain/news.service";
-import {New} from "../domain/news";
+import {Noticia} from "../domain/news";
 import {RouterExtensions} from "@nativescript/angular";
 import { ViewChild } from '@angular/core';
 import { Dialogs } from '@nativescript/core';
 import * as Toast from 'nativescript-toasts'
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.module';
+import { NewNewsAction } from '../domain/news-state.model';
 
 @Component({
   selector: 'Home',
@@ -18,12 +21,21 @@ export class HomeComponent implements OnInit {
 
   @ViewChild("layout") layout: ElementRef;
 
-  constructor(public newsService: NewsService, private routerExtensions: RouterExtensions) {
+  constructor(public newsService: NewsService, 
+              private routerExtensions: RouterExtensions,
+              private store: Store<AppState>) {
     // Use the component constructor to inject providers.
   }
 
   ngOnInit(): void {
-    // Init your component properties here.
+    this.store.select((state) => state.news.promoted)
+      .subscribe((data) => {
+        const f = data
+        if (f != null) {
+          //Toast.show({text: "Sugerimos leer: " + f.title, duration: Toast.DURATION.SHORT})
+          Dialogs.alert("Sugerimos leer: " + f.title)
+        }
+      })
   }
 
   onDrawerButtonTap(): void {
@@ -32,13 +44,14 @@ export class HomeComponent implements OnInit {
   }
 
   onItemTap(e): void {
-    console.dir(e.index + 1)
-    const url = 'home/news-detail/' + (e.index + 1).toString()
+    console.dir(e)
+    /* const url = 'home/news-detail/' + (e.index + 1).toString()
     this.routerExtensions.navigate([url], {
       transition: {
         name: 'fade'
       }
-    })
+    }) */
+    this.store.dispatch(new NewNewsAction(new Noticia(e.view.bindingContext)))
   }
 
   onPull(ev) {
@@ -96,5 +109,11 @@ export class HomeComponent implements OnInit {
       backgroundColor: new Color("white"),
       duration: 300
     })).then(() => Dialogs.action("Select action", "Cancel", ["Delete", "Archive"]))
+  }
+
+  onAddFav(x) {
+    console.log(x)
+    this.newsService.addFav(x)
+    this.newsService.favs()
   }
 }

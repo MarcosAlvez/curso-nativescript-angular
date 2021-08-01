@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { Application } from '@nativescript/core'
+import { NewsService } from '../domain/news.service'
 
 @Component({
   selector: 'Browse',
   templateUrl: './browse.component.html',
 })
 export class BrowseComponent implements OnInit {
-  constructor() {
+  constructor(private newsService: NewsService) {
     // Use the component constructor to inject providers.
   }
 
@@ -18,5 +19,9 @@ export class BrowseComponent implements OnInit {
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
+  }
+
+  onDropTables() {
+    this.newsService.dropTables()
   }
 }
